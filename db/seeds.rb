@@ -27,7 +27,7 @@ CSV.foreach('./db/csv/items.csv', headers: :true, header_converters: :symbol) do
     id: row[:id],
     name: row[:name],
     description: row[:description],
-    unit_price: row[:unit_price],
+    unit_price: (row[:unit_price].to_f/100),
     merchant_id: row[:merchant_id],
     created_at: row[:created_at],
     updated_at: row[:updated_at]
@@ -53,7 +53,7 @@ CSV.foreach('./db/csv/invoice_items.csv', headers: :true, header_converters: :sy
     item_id: row[:item_id],
     invoice_id: row[:invoice_id],
     quantity: row[:quantity],
-    unit_price: row[:unit_price],
+    unit_price: (row[:unit_price].to_f/100),
     created_at: row[:created_at],
     updated_at: row[:updated_at]
   })
