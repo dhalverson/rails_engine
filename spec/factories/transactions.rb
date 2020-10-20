@@ -6,5 +6,6 @@ FactoryBot.define do
     result { "MyString" }
     created_at { "2020-10-17 19:30:53" }
     updated_at { "2020-10-17 19:30:53" }
+    invoice
   end
 end

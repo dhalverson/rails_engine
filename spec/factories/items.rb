@@ -4,5 +4,6 @@ FactoryBot.define do
     description { "MyString" }
     unit_price { 1 }
     merchant_id { "MyString" }
+    merchant
   end
 end
