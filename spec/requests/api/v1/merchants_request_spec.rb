@@ -107,4 +107,12 @@ RSpec.describe 'Merchants API' do
 
     expect(merchant[:data][:attributes][:name]).to eq(merchant_params[:name])
   end
+
+  it 'can delete an existing merchant' do
+    id = create(:merchant).id
+
+    delete "/api/v1/merchants/#{id}"
+
+    expect(response.status).to eq(204)
+  end
 end
