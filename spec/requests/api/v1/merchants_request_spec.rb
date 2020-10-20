@@ -60,13 +60,38 @@ RSpec.describe 'Merchants API' do
     merchant_params = { name: 'Hudson Holdings' }
 
     patch "/api/v1/merchants/#{id}", params: merchant_params
-    
+
     merchant = JSON.parse(response.body, symbolize_names: true)
     
     expect(response).to be_successful
 
     expect(merchant[:data]).to have_key(:id)
     expect(merchant[:data][:id]).to be_a(String)
+
+    expect(merchant[:data]).to have_key(:type)
+    expect(merchant[:data][:type]).to be_a(String)
+
+    expect(merchant[:data]).to have_key(:attributes)
+    expect(merchant[:data][:attributes]).to be_a(Hash)
+
+    expect(merchant[:data][:attributes]).to have_key(:name)
+    expect(merchant[:data][:attributes][:name]).to be_a(String)
+
+    expect(merchant[:data]).to have_key(:relationships)
+    expect(merchant[:data][:attributes]).to be_a(Hash)
+
+    expect(merchant[:data][:attributes][:name]).to eq(merchant_params[:name])
+  end
+
+  it 'can create a merchant' do
+    merchant_params = { name: 'Hudson Holdings' }
+
+    post '/api/v1/merchants', params: merchant_params
+
+    merchant = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(merchant[:data]).to have_key(:id)
+    # expect(merchant[:data][:id]).to be_a(String)
 
     expect(merchant[:data]).to have_key(:type)
     expect(merchant[:data][:type]).to be_a(String)
