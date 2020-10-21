@@ -139,5 +139,13 @@ RSpec.describe 'Items API' do
     expect(item[:data][:attributes]).to be_a(Hash)
 
     expect(item[:data][:attributes][:name]).to eq(item_params[:name])
-  end  
+  end
+
+  it 'can delete an existing item' do
+    id = create(:item).id
+    
+    expect{ delete "/api/v1/items/#{id}" }.to change(Item, :count).by(-1)
+    expect(response.status).to eq(204)
+    expect{Item.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end

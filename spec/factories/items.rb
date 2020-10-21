@@ -3,6 +3,8 @@ FactoryBot.define do
     name { Faker::Commerce.product_name }
     description { Faker::Lorem.sentence }
     unit_price { Faker::Commerce.price }
+    created_at { "2020-10-20 19:21:33" }
+    updated_at { "2020-10-17 19:21:33" }
     association :merchant
     # association :invoice
     # association :invoice_item
