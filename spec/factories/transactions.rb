@@ -5,6 +5,6 @@ FactoryBot.define do
     result { "success" }
     created_at { "2020-10-17 19:30:53" }
     updated_at { "2020-10-17 19:30:53" }
-    # association :invoice
+    association :invoice
   end
 end
