@@ -91,7 +91,6 @@ RSpec.describe 'Merchants API' do
     merchant = JSON.parse(response.body, symbolize_names: true)
     
     expect(merchant[:data]).to have_key(:id)
-    # expect(merchant[:data][:id]).to be_a(String)
 
     expect(merchant[:data]).to have_key(:type)
     expect(merchant[:data][:type]).to be_a(String)
