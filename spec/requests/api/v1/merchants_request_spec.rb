@@ -106,4 +106,29 @@ RSpec.describe 'Merchants API' do
     expect(response.status).to eq(204)
     expect{Merchant.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it 'can return the items associated with a merchant' do
+    id = create(:item).id
+    get "/api/v1/items/#{id}/merchants"
+
+    expect(response).to be_successful
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    expect(merchant[:data]).to have_key(:id)
+
+    expect(merchant[:data]).to have_key(:type)
+    expect(merchant[:data][:type]).to be_a(String)
+
+    expect(merchant[:data]).to have_key(:attributes)
+    expect(merchant[:data][:attributes]).to be_a(Hash)
+
+    expect(merchant[:data][:attributes]).to have_key(:name)
+    expect(merchant[:data][:attributes][:name]).to be_a(String)
+  
+    expect(merchant[:data]).to have_key(:relationships)
+    expect(merchant[:data][:attributes]).to be_a(Hash)
+
+    expect(merchant[:data][:relationships]).to have_key(:items)
+    expect(merchant[:data][:relationships][:items]).to be_a(Hash)
+  end
 end
