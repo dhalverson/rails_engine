@@ -100,10 +100,42 @@ RSpec.describe 'Merchants API' do
   end
 
   it 'can delete an existing merchant' do
-    id = create(:merchant).id
-
+    merchant = create(:merchant)
+    merchant.items << create(:item)
+    id = merchant.id
+   
     expect{ delete "/api/v1/merchants/#{id}" }.to change(Merchant, :count).by(-1)
     expect(response.status).to eq(204)
+    expect(merchant.items.count).to eq(0)
     expect{Merchant.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it 'can return the items associated with a merchant' do
+    merchant = create(:merchant)
+    merchant.items << create(:item)
+    merchant.items << create(:item)
+    id = merchant.id
+
+    get "/api/v1/merchants/#{id}/items"
+
+    expect(response).to be_successful
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data][0]).to have_key(:id)
+
+    expect(items[:data][0]).to have_key(:type)
+    expect(items[:data][0][:type]).to be_a(String)
+
+    expect(items[:data][0]).to have_key(:attributes)
+    expect(items[:data][0][:attributes]).to be_a(Hash)
+
+    expect(items[:data][0][:attributes]).to have_key(:name)
+    expect(items[:data][0][:attributes][:name]).to be_a(String)
+  
+    expect(items[:data][0]).to have_key(:relationships)
+    expect(items[:data][0][:attributes]).to be_a(Hash)
+
+    expect(items[:data][0][:relationships]).to have_key(:invoice_items)
+    expect(items[:data][0][:relationships][:invoice_items]).to be_a(Hash)
   end
 end

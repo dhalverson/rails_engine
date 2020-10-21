@@ -47,9 +47,9 @@ RSpec.describe 'Items API' do
   it 'can get a single item by id' do
     id = create(:item).id
     get "/api/v1/items/#{id}"
-    item = JSON.parse(response.body, symbolize_names: true)
-
+   
     expect(response).to be_successful
+    item = JSON.parse(response.body, symbolize_names: true)
     
     expect(item[:data]).to have_key(:id)
     expect(item[:data][:id]).to be_a(String)
@@ -114,6 +114,8 @@ RSpec.describe 'Items API' do
   it 'can create an item' do
     item_params = { name: 'New Item Name', description: 'New description', unit_price: 19.99 }
     post '/api/v1/items', params: item_params
+
+    expect(response).to be_successful
     item = JSON.parse(response.body, symbolize_names: true)
 
     expect(item[:data]).to have_key(:id)
@@ -147,5 +149,30 @@ RSpec.describe 'Items API' do
     expect{ delete "/api/v1/items/#{id}" }.to change(Item, :count).by(-1)
     expect(response.status).to eq(204)
     expect{Item.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it 'can return the merchant associated with an item' do
+    id = create(:item).id
+    get "/api/v1/items/#{id}/merchants"
+
+    expect(response).to be_successful
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    expect(merchant[:data]).to have_key(:id)
+
+    expect(merchant[:data]).to have_key(:type)
+    expect(merchant[:data][:type]).to be_a(String)
+
+    expect(merchant[:data]).to have_key(:attributes)
+    expect(merchant[:data][:attributes]).to be_a(Hash)
+
+    expect(merchant[:data][:attributes]).to have_key(:name)
+    expect(merchant[:data][:attributes][:name]).to be_a(String)
+  
+    expect(merchant[:data]).to have_key(:relationships)
+    expect(merchant[:data][:attributes]).to be_a(Hash)
+
+    expect(merchant[:data][:relationships]).to have_key(:items)
+    expect(merchant[:data][:relationships][:items]).to be_a(Hash)
   end
 end
