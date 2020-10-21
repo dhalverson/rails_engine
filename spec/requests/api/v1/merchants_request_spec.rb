@@ -111,8 +111,9 @@ RSpec.describe 'Merchants API' do
   it 'can delete an existing merchant' do
     id = create(:merchant).id
 
-    delete "/api/v1/merchants/#{id}"
-
+    expect{ delete "/api/v1/merchants/#{id}" }.to change(Merchant, :count).by(-1)
+    
     expect(response.status).to eq(204)
+    expect{Merchant.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 end

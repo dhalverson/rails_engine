@@ -3,5 +3,7 @@ FactoryBot.define do
     name { Faker::Company.name }
     created_at { "2020-10-17 19:29:25" }
     updated_at { "2020-10-18 19:29:25" }
+    # association :invoice
+    # association :item
   end
 end

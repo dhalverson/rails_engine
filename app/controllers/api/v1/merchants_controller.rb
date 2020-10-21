@@ -19,6 +19,7 @@ class Api::V1::MerchantsController < ApplicationController
     Merchant.destroy(params[:id])
     render body: nil, status: :no_content
   end
+
   private
 
   def merchant_params
