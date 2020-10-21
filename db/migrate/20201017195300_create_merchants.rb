@@ -4,7 +4,6 @@ class CreateMerchants < ActiveRecord::Migration[5.2]
       t.string :name
       t.datetime :created_at
       t.datetime :updated_at
-
     end
   end
 end
