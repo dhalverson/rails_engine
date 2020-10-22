@@ -3,6 +3,10 @@ class Api::V1::Items::FindController < ApplicationController
     render json: ItemSerializer.new(Item.find_by('name ILIKE ?', "%#{item_params[:name]}%"))
   end
 
+  def index
+    render json: ItemSerializer.new(Item.where('name ILIKE ?', "%#{item_params[:name]}%"))
+  end
+
   private
 
   def item_params
