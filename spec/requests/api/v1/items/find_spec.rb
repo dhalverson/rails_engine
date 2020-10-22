@@ -16,7 +16,7 @@ RSpec.describe 'Items Endpoints' do
     expect(item[:data][:attributes][:name]).to_not eq(item2.name)
   end
 
-  it 'can find all recordds that match a set of criteria' do
+  it 'can find all records that match a set of criteria' do
     item1 = create(:item, name: 'Dog Toy')
     item2 = create(:item, name: 'Cat Toy')
     item3 = create(:item, name: 'Dog Bone')
@@ -24,10 +24,10 @@ RSpec.describe 'Items Endpoints' do
     get '/api/v1/items/find_all?name=dog'
 
     expect(response).to be_successful
-    item = JSON.parse(response.body, symbolize_names: true)
+    items = JSON.parse(response.body, symbolize_names: true)
 
-     expect(item[:data]).to be_an(Array)
-     expect(item[:data].count).to eq(2)
-     expect(item[:data][0][:attributes][:name]).to eq(item1.name)
+     expect(items[:data]).to be_an(Array)
+     expect(items[:data].count).to eq(2)
+     expect(items[:data][0][:attributes][:name]).to eq(item1.name)
   end
 end
