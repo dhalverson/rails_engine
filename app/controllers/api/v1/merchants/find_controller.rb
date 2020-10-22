@@ -1,5 +1,6 @@
 class Api::V1::Merchants::FindController < ApplicationController
   def show
+
     render json: MerchantSerializer.new(Merchant.find_by('name ILIKE ?', "%#{merchant_params[:name]}%"))
   end
 
@@ -9,5 +10,3 @@ class Api::V1::Merchants::FindController < ApplicationController
     params.permit(:name)
   end
 end
-
-

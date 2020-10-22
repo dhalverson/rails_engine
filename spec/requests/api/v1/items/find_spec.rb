@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Items Endpoints' do
   it 'can find a single record that matches a set of criteria' do
-    dog = create(:item, name: 'Dog Toy')
-    cat = create(:item, name: 'Cat Toy')
+    item1 = create(:item, name: 'Dog Toy')
+    item2 = create(:item, name: 'Cat Toy')
 
     get '/api/v1/items/find?name=dog'
 
@@ -12,6 +12,7 @@ RSpec.describe 'Items Endpoints' do
 
     expect(item[:data]).to be_a(Hash)
 
-    expect(item[:data][:attributes][:name]).to eq(dog.name)
+    expect(item[:data][:attributes][:name]).to eq(item1.name)
+    expect(item[:data][:attributes][:name]).to eq(item2.name)
   end
 end

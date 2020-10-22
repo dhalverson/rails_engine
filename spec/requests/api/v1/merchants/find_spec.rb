@@ -13,5 +13,6 @@ RSpec.describe 'Merchants Endpoints' do
     expect(item[:data]).to be_a(Hash)
 
     expect(item[:data][:attributes][:name]).to eq(merchant1.name)
+    expect(item[:data][:attributes][:name]).to_not eq(merchant2.name)
   end
 end
