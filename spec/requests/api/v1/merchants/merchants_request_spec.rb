@@ -101,7 +101,7 @@ RSpec.describe 'Merchants API' do
 
   it 'can delete an existing merchant' do
     merchant = create(:merchant)
-    merchant.items << create(:item)
+    create(:item, merchant: merchant)
     id = merchant.id
    
     expect{ delete "/api/v1/merchants/#{id}" }.to change(Merchant, :count).by(-1)
@@ -112,8 +112,7 @@ RSpec.describe 'Merchants API' do
 
   it 'can return the items associated with a merchant' do
     merchant = create(:merchant)
-    merchant.items << create(:item)
-    merchant.items << create(:item)
+    create_list(:item, 3, merchant: merchant)
     id = merchant.id
 
     get "/api/v1/merchants/#{id}/items"
