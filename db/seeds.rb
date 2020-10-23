@@ -71,3 +71,7 @@ CSV.foreach('./db/csv/transactions.csv', headers: :true, header_converters: :sym
     updated_at: row[:updated_at]
   })
 end
+
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end

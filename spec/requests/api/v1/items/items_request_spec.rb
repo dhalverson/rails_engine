@@ -153,7 +153,7 @@ RSpec.describe 'Items API' do
 
   it 'can return the merchant associated with an item' do
     id = create(:item).id
-    get "/api/v1/items/#{id}/merchants"
+    get "/api/v1/items/#{id}/merchant"
 
     expect(response).to be_successful
     merchant = JSON.parse(response.body, symbolize_names: true)
