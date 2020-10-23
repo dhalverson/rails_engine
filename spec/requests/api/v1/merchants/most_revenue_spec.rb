@@ -43,8 +43,5 @@ RSpec.describe 'Merchants Most Revenue' do
     expect(merchants[:data]).to be_an(Array)
     expect(merchants[:data].count).to eq(2)
     expect(merchants[:data][0][:attributes][:name]).to eq(@m5.name)
-
   end
 end
-
-
