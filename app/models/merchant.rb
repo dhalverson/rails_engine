@@ -6,4 +6,17 @@ class Merchant < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
+
+  # def self.highest_revenue(limit)
+  #   SELECT m.*, SUM(ii.unit_price * ii.quantity) AS Revenue
+  #   FROM merchants m
+  #   JOIN items i ON m.id = i.merchant_id
+  #   JOIN invoice_items ii ON i.id = ii.item_id
+  #   JOIN invoices inv ON ii.invoice_id = inv.id
+  #   JOIN transactions t ON inv.id = t.invoice_id
+  #   WHERE inv.status = 'shipped' AND t.result = 'success'
+  #   GROUP BY m.id
+  #   ORDER BY Revenue DESC
+  #   LIMIT "#{limit}";
+  # end
 end

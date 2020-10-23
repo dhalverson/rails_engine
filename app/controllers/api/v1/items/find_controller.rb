@@ -13,5 +13,3 @@ class Api::V1::Items::FindController < ApplicationController
     params.permit(:name, :description, :unit_price, :merchant_id, :created_at, :updated_at)
   end
 end
-
-

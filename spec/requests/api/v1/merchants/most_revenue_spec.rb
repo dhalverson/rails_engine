@@ -35,6 +35,15 @@ RSpec.describe 'Merchants Most Revenue' do
 
   it 'Returns a variable number of merchants ranked by total revenue' do
 
+    get '/api/v1/merchants/most_revenue?quantity=2'
+    
+    expect(response).to be_successful
+    merchants = JSON.parse(response.body, symbolize_names: true)
+
+    expect(merchants[:data]).to be_an(Array)
+    expect(merchants[:data].count).to eq(2)
+    expect(merchants[:data][0][:attributes][:name]).to eq(@m5.name)
+
   end
 end
 
